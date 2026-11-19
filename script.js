@@ -29,17 +29,20 @@ async function searchMovies(movieName) {
     }
 }
 
-function displayMovies(movies){
+function displayMovies(movies) {
     movieHub.innerHTML = "";
     movies.forEach((movie) => {
-        
-const div = document.createElement("div")
-div.dataset.imdbID = movie.imdbID
-div.setAttribute("class", "movie-card")
+        const div = document.createElement("div");
+        div.dataset.imdbID = movie.imdbID;
+        div.setAttribute("class", "movie-card");
 
-div.innerHTML = `
+        const posterImg = movie.Poster && movie.Poster !== "N/A"
+            ? movie.Poster
+            : "https://via.placeholder.com/300x450?text=No+Poster";
+
+        div.innerHTML = `
             <div>
-                <img src="${movie.Poster}" alt="">
+                <img src="${posterImg}" alt="${movie.Title}" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450?text=No+Poster';">
             </div>
             <div>
                 <p>${movie.Title}</p>
@@ -47,9 +50,7 @@ div.innerHTML = `
             </div>
         `;
 
-        
-
-        movieHub.append(div);
+        movieHub.appendChild(div);
     });
 }
 
